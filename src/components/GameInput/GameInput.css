@@ -1,0 +1,16 @@
+.inputContainer{
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height:10vh;
+  }
+  .inputContainer > input{
+    text-align: center;
+    margin-left:4px;
+  }
+  .inputContainer > button{
+    margin-left: 4px;
+    text-align: center;
+  }
