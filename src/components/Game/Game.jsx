@@ -14,7 +14,6 @@ export default function Game({objs}) {
     console.log(list)
   },[])
   const ref = useCanvas(draw,direction === 'stop')
-
   function draw(ctx){
     //clear screen
 
@@ -34,32 +33,27 @@ export default function Game({objs}) {
 
 
       //create a random line from the object  in any direction     
-      ctx.fillStyle = 'black'
-      ctx.beginPath()
-      ctx.moveTo(mappedX,mappedY);
-
+      
       const x = mappedX + (v.size + 10) * Math.cos(Math.random() * Math.PI * 2)
       const y = mappedY + (v.size +10 ) * Math.sin(Math.random() * Math.PI * 2)
-      ctx.lineTo(x,y)
-      ctx.stroke()
-
-      //attach a name to the end of the line
-      ctx.font = "13px serif";
-      ctx.fillText(v.name,x,y)
-      ctx.beginPath()
+      
 
       //create different objects
       ctx.fillStyle = v.color
       if(v.type === 'square'){
+        ctx.filter = square ? 'opacity(50%)':'opacity(100%)'
         ctx.fillRect(mappedX,mappedY,v.size,v.size)
-        ctx.filter = square ?  'opacity(50%)':'opacity(100%)'
+        
       }
       else if(v.type === 'circle'){
-        ctx.arc(mappedX,mappedY,v.size,0,2 * Math.PI)
         ctx.filter = circle ?  'opacity(50%)':'opacity(100%)'
+        ctx.arc(mappedX,mappedY,v.size,0,2 * Math.PI)
+        
       }
-      else{
+      else {
         //draw a equilateral triangle
+        
+        ctx.filter = traingle ?  'opacity(50%)':'opacity(100%)'
         const height = v.size * (Math.sqrt(3)/2)
         const x = mappedX
         const y= mappedY
@@ -67,9 +61,19 @@ export default function Game({objs}) {
         ctx.lineTo(x- v.size/2,y+height/2)
         ctx.lineTo(x+v.size/2,y+height/2)
         ctx.lineTo(x,y-height/2)
-
-        ctx.filter = traingle ?  'opacity(50%)':'opacity(100%)'
+        ctx.closePath()
+        
       }
+      ctx.fillStyle = 'black'
+      ctx.beginPath()
+      ctx.moveTo(mappedX,mappedY);
+      ctx.lineTo(x,y)
+      ctx.stroke()
+
+      //attach a name to the end of the line
+      ctx.font = "13px serif";
+      ctx.fillText(v.name,x,y)
+      ctx.beginPath()
       ctx.closePath()
       ctx.fill()
       //return a new object with changed position
