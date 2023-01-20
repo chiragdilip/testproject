@@ -64,6 +64,7 @@ export default function Game({objs}) {
         ctx.closePath()
         
       }
+      ctx.fill()
       ctx.fillStyle = 'black'
       ctx.beginPath()
       ctx.moveTo(mappedX,mappedY);
@@ -75,7 +76,7 @@ export default function Game({objs}) {
       ctx.fillText(v.name,x,y)
       ctx.beginPath()
       ctx.closePath()
-      ctx.fill()
+      
       //return a new object with changed position
       return {
         ...v,
